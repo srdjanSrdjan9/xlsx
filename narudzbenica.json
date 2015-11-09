@@ -1,0 +1,29 @@
+ {
+		"number": 123,
+		"billNumber": 456,
+		"deliveryDate": "2016-06-02",
+		"deliveryType": "shipping",
+		"distributor": "Majstor Bob",
+	"company":{
+			"name": "ASD",
+			"town": "Uzice",
+			"adress": "Tkacka 12"
+		},
+		"company1":{
+			"name": "ASD",
+			"town": "Uzice",
+			"adress": "Tkacka 12"	
+		},
+		"items":[
+		{"number": 1,
+		"code": 123456,
+		"description": "knjige",
+		"something": "asd",
+		"m": "kg",
+		"quantity": 44,
+		"price": 100,
+		"percentage": 10,
+		"sumPrice": 440
+		}
+		]		
+	}

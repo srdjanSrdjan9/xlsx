@@ -1,0 +1,74 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <!--<script type="text/babel" src="scripts/example.js"></script>-->
+    <!--<script type="text/babel">
+      // To get started with this tutorial running your own code, simply remove
+      // the script tag loading scripts/example.js and start writing code here.
+
+      var XlsxTemplate = require('xlsx-template');
+      var fs =require('fs');
+      var path = require('path');
+      fs.readFile(path.join(__dirname,'templates','narudzbenica.xlsx'), function (err, data){
+      var template = new XlsxTemplate(data);
+      var sheetNumber = 1;
+      var values = {
+        number: 123,
+        billNumber: 456,
+        deliveryDate: "2016-06-02",
+        deliveryType: "shipping",
+        distributor: "Majstor Bob",
+        company:{
+          name: "ASD",
+          town: "Uzice",
+          adress: "Tkacka 12"
+        },
+        company1:{
+          name: "ASD",
+          town: "Uzice",
+          adress: "Tkacka 12" 
+        },
+        items:[
+          {number: 1,
+          code: 123456,
+          description: "knjige",
+          something: "asd",
+          m: "kg",
+          quantity: 44,
+          price: 100,
+          percentage: 10,
+          sumPrice: 440
+          }
+        ]   
+      };
+      template.substitute(sheetNumber,values);
+      var data = template.generate();
+      //if(err)console.log('pukla greska');
+      //else console.error('nema nista');
+    
+});
+
+
+    </script>-->
+
+
+
+    $.ajax({
+      type: "POST",
+      url: /api,
+      data: data,
+      success: success,
+      dataType: dataType
+    });
+  </body>
+</html>

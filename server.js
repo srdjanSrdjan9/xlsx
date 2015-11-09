@@ -23,7 +23,7 @@ app.post('/api', function (req, res) {
 	requestJson = req.body;
 	fs.readFile(path.join(__dirname,'templates','narudzbenica.xlsx'), function (err, data){
 	var template = new Template(data);
-	var sheetNumber = 2;
+	var sheetNumber = 1;
 	
 	template.substitute(sheetNumber,requestJson);
 	var data1 = template.generate();

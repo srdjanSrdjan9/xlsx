@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-app.get('/api/user', function (req, res) {
+app.post('/api/user', function (req, res) {
   res.json(requestJson);
 });
 
-app.post('/api', function (req, res) {
-	requestJson = req.body;
+app.get('/api', function (req, res) {
+	//requestJson = req.body;
 	fs.readFile(path.join(__dirname,'templates','narudzbenica.xlsx'), function (err, data){
 	var template = new Template(data);
 	var sheetNumber = 2;

@@ -7,7 +7,7 @@ fs.readFile(path.join(__dirname,'templates','narudzbenica.xlsx'), function (err,
 	var values = {
 		number: 123,
 		billNumber: 456,
-		deliveryDate: new Date('2016-06-02'),
+		deliveryDate: '2016-06-02',
 		deliveryType: "shipping",
 		distributor: "Majstor Bob",
 	company:{

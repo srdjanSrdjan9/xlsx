@@ -21,29 +21,12 @@
         handleXml: function(){
           function action(){
             alert(this.responseText);
-            //var blob = reader.readAsArrayBuffer(this.responseText);
-           // console.log(this.responseText);
           }
                        var http = new XMLHttpRequest();
                        http.addEventListener("load", action);
                         http.open("GET", "http://localhost:8080/api", true);
-                       // http.responseType = "text";
-                        //console.log('succes!!!');
                         http.send();
-      // $.ajax({
-      //   type: 'GET',
-      //   url: 'http://localhost:8080/api',
-      //   crossDomain: true,
-      //   succes: function(response){
-      //     response = response;
-      //     console.log('success!!!');
-      //     console.log(response);
-      //   }.bind(this),
-      //   error: function(){
-      //     console.log('nisam primio odgovor')
-      //   }
-      // });
-
+      
                  },
         render: function(){
           return (

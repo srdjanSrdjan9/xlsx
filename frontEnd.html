@@ -1,0 +1,75 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/babel">
+    var selected = false;
+    var reader = new FileReader();
+    
+      // To get started with this tutorial running your own code, simply remove
+      // the script tag loading scripts/example.js and start writing code here.
+      var MainComponent = React.createClass({
+        handleXml: function(){
+          function action(){
+            alert(this.responseText);
+            //var blob = reader.readAsArrayBuffer(this.responseText);
+           // console.log(this.responseText);
+          }
+                       var http = new XMLHttpRequest();
+                       http.addEventListener("load", action);
+                        http.open("GET", "http://localhost:8080/api", true);
+                       // http.responseType = "text";
+                        //console.log('succes!!!');
+                        http.send();
+      // $.ajax({
+      //   type: 'GET',
+      //   url: 'http://localhost:8080/api',
+      //   crossDomain: true,
+      //   succes: function(response){
+      //     response = response;
+      //     console.log('success!!!');
+      //     console.log(response);
+      //   }.bind(this),
+      //   error: function(){
+      //     console.log('nisam primio odgovor')
+      //   }
+      // });
+
+                 },
+        render: function(){
+          return (
+            <Narudzbenica handleRequest = {this.handleXml} />
+            );
+        }
+      });
+      var Narudzbenica = React.createClass({
+        handleSubmit: function(e){
+          e.preventDefault();
+          selected = true;
+          this.props.handleRequest({selected: true});
+        },
+        render: function(){
+          return (<form onSubmit = {this.handleSubmit}>
+                      <input type = "submit" value = "GET" />
+                      </form>);
+        }
+      });
+      
+    ReactDOM.render(
+      <MainComponent />,
+      document.getElementById('content')
+    );
+
+      
+    </script>
+  </body>
+</html>

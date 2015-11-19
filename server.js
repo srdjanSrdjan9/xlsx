@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
-var Template = require('xlsx-template');
-var fs =require('fs');
+var XlsxTemplate = require('xlsx-template');
 var path = require('path');
 var bodyParser = require('body-parser');
 var Docxtemplater = require('docxtemplater');
-var zip = require('jszip');
-
+  
 var cors = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -62,14 +60,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/apidoc', cors , function (req, res) {
   var fs = require('fs');
 var Docxtemplater = require('docxtemplater');
-
-//Load the docx file as a binary
+ 
 var content = fs
     .readFileSync(__dirname + "/templates/tagExample.docx", "binary");
 
 var doc = new Docxtemplater(content);
 
-//set the templateVariables
 doc.setData({
     "first_name":"Hipp",
     "last_name":"Edgar",
@@ -77,38 +73,55 @@ doc.setData({
     "description":"New Website"
 });
 
-//apply them (replace all occurences of {first_name} by Hipp, ...)
 doc.render();
 
 var buf = doc.getZip()
              .generate({type:"nodebuffer"});
 
 fs.writeFileSync(__dirname+"/templates/output_converted.docx",buf);
+var options = {
+    root: __dirname + '/templates/',
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+res.set('Content-Type', 
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 res.send(buf);
+console.log('succes!!');
 });
 
 
 
 
 app.get('/api', cors, function (req, res) {
-	//requestJson = req.body;
-	fs.readFile(path.join(__dirname,'templates','narudzbenica.xlsx'), function (err, data){
-	var template = new Template(data);
-	var sheetNumber = 2;
-	
-	template.substitute(sheetNumber,requestJson);
-	var data1 = template.generate();
+  var fs = require('fs');
+ fs.readFile(path.join(__dirname, 'templates', 'narudzbenica.xlsx'), function(err, data) {
 
-	//console.log(requestJson);
-	if(err)console.error('pukla greska');
-	else {
-		fs.writeFileSync(__dirname+"/templates/narudzbenica.xlsx",data1);
-res.send("SUCCESS!!!");
-		console.log('dokument popunjen');
-	}
+    var template = new XlsxTemplate(data);
+
+    var sheetNumber = 1;
+
+    var values = {
+            name: "asd",
+            surname: "asd",
+            people: [
+                {name: "saga12", surname: 20},
+                {name: "saga", surname: 22}
+            ]
+        };
+
+    template.substitute(sheetNumber, values);
+
+    var data = template.generate();
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.send(new Buffer(data, 'binary'));
+    console.log("succes");
 });
 });
 
-app.listen(8080, function () {
+app.listen(3000, function () {
   console.log('server up and running at 8080 port');
 });

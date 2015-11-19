@@ -8,29 +8,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script src="FileSaver.js"></script>
+    <script src="js-unzip.js"></script>
+    <script src="js-inflate.min.js"></script>
   </head>
   <body>
     <div id="content"></div>
     <script type="text/babel">
     var selected = false;
-    var reader = new FileReader();
-    
-      // To get started with this tutorial running your own code, simply remove
-      // the script tag loading scripts/example.js and start writing code here.
       var MainComponent = React.createClass({
-        handleXml: function(){
+        handle: function(){
+ var http = new XMLHttpRequest();
+                      http.addEventListener("load", action);
+                       http.open("GET", "http://localhost:3000/api", true);
+                       http.responseType = "blob";
+                       
+                       http.send();
           function action(){
-            alert(this.responseText);
-          }
-                       var http = new XMLHttpRequest();
+                         var blob = new Blob([http.response], {type:'blob'});
+                          alert(http.response);
+                        
+                            saveAs(blob, "test.xlsx");
+}
+        },
+        handleXml: function(){
+           var http = new XMLHttpRequest();
                        http.addEventListener("load", action);
-                        http.open("GET", "http://localhost:8080/api", true);
-                        http.send();
-      
-                 },
+                       http.open("GET", "http://localhost:3000/apidoc", true);
+                       http.responseType = "blob";
+                       
+                       http.send();
+          function action(){
+                         var blob = new Blob([http.response], {type:'blob'});
+                          alert(blob);
+                        
+    saveAs(blob, "test.docx");
+          } 
+        },       
         render: function(){
           return (
-            <Narudzbenica handleRequest = {this.handleXml} />
+            <Narudzbenica handleRequest = {this.handleXml} handleXlsxClick = {this.handle} />
             );
         }
       });
@@ -40,10 +58,16 @@
           selected = true;
           this.props.handleRequest({selected: true});
         },
+        getXlsx: function(e){
+          e.preventDefault();
+          selected = true;
+          this.props.handleXlsxClick({});
+        },
         render: function(){
-          return (<form onSubmit = {this.handleSubmit}>
-                      <input type = "submit" value = "GET" />
-                      </form>);
+          return (<div >
+                      <button onClick = {this.handleSubmit} >DOCX</button>
+              <button onClick = {this.getXlsx} > XLSX</button>
+                                    </div>);
         }
       });
       
